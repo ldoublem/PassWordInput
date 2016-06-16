@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.ldoublem.passWordInput.MainActivity">
+
+
+    <com.ldoublem.passWordInput.view.PwdInputView
+        android:id="@+id/pwd_input_view"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:cursorVisible="false"
+        android:focusableInTouchMode="true"
+        android:inputType="number"
+        android:lines="1"
+        android:maxLength="6"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Switch
+            android:id="@+id/sw_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Show Passwords"/>
+
+        <!--<CheckBox-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/cb_icon_text"-->
+        <!--android:enabled="false"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="icon/text"/>-->
+
+        <RadioGroup
+            android:id="@+id/rg_RadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/rb_icon"
+                android:enabled="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="icon"/>
+
+            <RadioButton
+                android:enabled="false"
+
+                android:id="@+id/rb_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="text"/>
+
+            <RadioButton
+                android:enabled="false"
+
+                android:id="@+id/rb_pwd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pwd"/>
+
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_input_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+
+    <com.ldoublem.passWordInput.view.PwdGestureView
+        android:id="@+id/pwd_view"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+    <Switch
+        android:id="@+id/sw_line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Draw Lines"/>
+
+    <TextView
+        android:id="@+id/tv_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+
+</LinearLayout>
