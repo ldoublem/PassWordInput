@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Switch mSw_line, mSw_show;
     RadioButton rb_icon, rb_text, rb_pwd;
     RadioGroup rg_RadioGroup;
+    CheckBox cb_set_pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         rb_text = (RadioButton) findViewById(R.id.rb_text);
         rb_pwd = (RadioButton) findViewById(R.id.rb_pwd);
         rg_RadioGroup = (RadioGroup) findViewById(R.id.rg_RadioGroup);
+        cb_set_pwd = (CheckBox) findViewById(R.id.cb_set_pwd);
 
+//        mPwdGestureView.setOldPwd("012543");
         mPwdGestureView.setIsDrawLine(mSw_line.isChecked());
 
         mSw_line.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -98,6 +101,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        cb_set_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    mPwdGestureView.setOldPwd("012543");
+                }
+                else
+                {
+                    mPwdGestureView.setOldPwd(null);
+                }
+            }
+        });
+
 
 
     }

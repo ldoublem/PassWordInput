@@ -89,7 +89,7 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="1dp"/>
 
     <Switch
         android:id="@+id/sw_line"
@@ -103,6 +103,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"/>
+
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:id="@+id/cb_set_pwd"
+        android:layout_gravity="center"
+        android:text="set password 012543"
+        android:layout_height="wrap_content"/>
+
 
 
 </LinearLayout>
