@@ -401,7 +401,6 @@ public class PwdGestureView extends View {
 
 
         if (isError) {
-
             Path p = new Path();
             p.moveTo(x1, y1);
             p.lineTo(x2, y2);
