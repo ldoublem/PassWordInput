@@ -17,7 +17,7 @@ import com.ldoublem.passWordInput.view.PwdInputView;
 
 public class MainActivity extends AppCompatActivity {
     PwdGestureView mPwdGestureView;
-    PwdInputView mPwdInputView;
+    PwdInputView mPwdInputView,mPwdInputView2,mPwdInputView3;
     TextView tv_pwd, tv_input_pwd;
     Switch mSw_line, mSw_show;
     RadioButton rb_icon, rb_text, rb_pwd;
@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mPwdGestureView = (PwdGestureView) findViewById(R.id.pwd_view);
         mPwdInputView = (PwdInputView) findViewById(R.id.pwd_input_view);
+        mPwdInputView2   = (PwdInputView) findViewById(R.id.pwd_input_view2);
+        mPwdInputView3  = (PwdInputView) findViewById(R.id.pwd_input_view3);
         tv_pwd = (TextView) findViewById(R.id.tv_pwd);
         tv_input_pwd = (TextView) findViewById(R.id.tv_input_pwd);
         mSw_line = (Switch) findViewById(R.id.sw_line);
@@ -85,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mPwdInputView.setShadowPasswords(mSw_show.isChecked());
+        mPwdInputView.setPwdInputViewType(PwdInputView.ViewType.DEFAULT);
+//        mPwdInputView.setRadiusBg(10);
         mPwdInputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -101,6 +105,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        mPwdInputView2.setShadowPasswords(mSw_show.isChecked());
+        mPwdInputView2.setPwdInputViewType(PwdInputView.ViewType.UNDERLINE);
+        mPwdInputView2.setRadiusBg(0);
+
+        mPwdInputView3.setShadowPasswords(mSw_show.isChecked());
+        mPwdInputView3.setPwdInputViewType(PwdInputView.ViewType.BIASLINE);
+        mPwdInputView3.setRadiusBg(20);
+
+
+
 
         cb_set_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -125,13 +140,20 @@ public class MainActivity extends AppCompatActivity {
         if (show) {
             if (rb_icon.isChecked()) {
                 mPwdInputView.setShadowPasswords(show, R.mipmap.icon_pwd);
+                mPwdInputView2.setShadowPasswords(show, R.mipmap.icon_pwd);
             } else if (rb_text.isChecked()) {
                 mPwdInputView.setShadowPasswords(show, "密");
+                mPwdInputView2.setShadowPasswords(show, "密");
+
             } else if (rb_pwd.isChecked()) {
                 mPwdInputView.setShadowPasswords(show);
+                mPwdInputView2.setShadowPasswords(show);
+
             }
         } else {
             mPwdInputView.setShadowPasswords(show);
+            mPwdInputView2.setShadowPasswords(show);
+
 
         }
 

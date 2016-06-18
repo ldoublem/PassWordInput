@@ -11,6 +11,7 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -100,9 +101,7 @@ public class PwdGestureView extends View {
                 fButton.right = (j + 1) * buttonWidth + buttonMarginLeft - buttonPadding;
                 fButton.top = i * buttonWidth + buttonMarginTop + buttonPadding;
                 fButton.bottom = (i + 1) * buttonWidth + buttonMarginTop - buttonPadding;
-
                 canvas.drawCircle(fButton.centerX(), fButton.centerY(), ArcWidth, mPaint);
-
                 mRectFButtons.add(fButton);
 
             }
@@ -146,10 +145,8 @@ public class PwdGestureView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         drawButtons(canvas);
         drawCircleAndLines(canvas);
-
 
     }
 
@@ -157,9 +154,9 @@ public class PwdGestureView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
 
-
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                getParent().requestDisallowInterceptTouchEvent(true);
                 isError = false;
                 mRectFButtons_select.clear();
                 mPwd.clear();
@@ -167,11 +164,13 @@ public class PwdGestureView extends View {
                 postInvalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
+
                 addButtonSelect(event.getX(), event.getY());
                 postInvalidate();
                 break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                getParent().requestDisallowInterceptTouchEvent(false);
                 callGetPwd();
                 postInvalidate();
                 return false;
@@ -433,6 +432,5 @@ public class PwdGestureView extends View {
     public void setOldPwd(String oldPwd) {
         this.oldPwd = oldPwd;
     }
-
 
 }

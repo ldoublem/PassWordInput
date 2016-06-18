@@ -16,6 +16,7 @@ import android.view.animation.Transformation;
 import android.widget.EditText;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 
 /**
  * Created by lumingmin on 16/6/16.
@@ -41,6 +42,8 @@ public class PwdInputView extends EditText {
     private String defaultStr = null;
     private int defalutPicId = -1;
 
+    private ViewType mViewType = ViewType.DEFAULT;
+
     public PwdInputView(Context context) {
         this(context, null);
     }
@@ -61,6 +64,11 @@ public class PwdInputView extends EditText {
 
     }
 
+
+    public enum ViewType {
+        DEFAULT, UNDERLINE, BIASLINE
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -73,13 +81,47 @@ public class PwdInputView extends EditText {
         mPaint.setStrokeWidth(0.8f);
         canvas.drawRoundRect(rect, radiusBg, radiusBg, mPaint);
 
-        mPaint.setStrokeWidth(0.5f);
-        for (int i = 1; i < maxLineSize; i++) {
-            float x = getMeasuredWidth() * i / maxLineSize;
-            canvas.drawLine(x, 0, x, getMeasuredHeight(), mPaint);
-        }
+
         float cx, cy = getMeasuredHeight() / 2;
         float half = getMeasuredWidth() / maxLineSize / 2;
+
+        switch (mViewType) {
+            case DEFAULT:
+                mPaint.setStrokeWidth(0.5f);
+                for (int i = 1; i < maxLineSize; i++) {
+                    float x = getMeasuredWidth() * i / maxLineSize;
+                    canvas.drawLine(x, 0, x, getMeasuredHeight(), mPaint);
+                }
+                break;
+
+            case UNDERLINE:
+                mPaint.setStrokeWidth(4.0f);
+                for (int i = getText().toString().length(); i < maxLineSize; i++) {
+                    float x = getMeasuredWidth() * i / maxLineSize + half;
+                    canvas.drawLine(x - half / 3,
+                            getMeasuredHeight() - getMeasuredHeight() / 4,
+                            x + half / 3,
+                            getMeasuredHeight() - getMeasuredHeight() / 4,
+                            mPaint);
+                }
+                break;
+
+            case BIASLINE:
+                mPaint.setStrokeWidth(3.0f);
+                for (int i = getText().toString().length(); i < maxLineSize; i++) {
+                    float x = getMeasuredWidth() * i / maxLineSize + half;
+                    canvas.drawLine(x + half / 8,
+                            getMeasuredHeight() / 2 - half / 4,
+                            x - half / 8,
+                            getMeasuredHeight() / 2 + half / 4,
+                            mPaint);
+                }
+
+
+                break;
+            default:
+                break;
+        }
 
 
         if (isShadowPasswords) {
@@ -95,7 +137,7 @@ public class PwdInputView extends EditText {
                     if (bitmap == null) {
                         bitmap = BitmapFactory.decodeResource(getContext().getResources(), defalutPicId);
                         scale = bitmap.getHeight() / bitmap.getWidth();
-                        bitmap= setBitmapSize(bitmap,(int)half,scale);
+                        bitmap = setBitmapSize(bitmap, (int) half, scale);
                     }
                     canvas.drawBitmap(bitmap, cx - half / 2, cy - (half * scale) / 2, mPaintArc);
                 } else {
@@ -286,6 +328,16 @@ public class PwdInputView extends EditText {
         b = Bitmap.createScaledBitmap(b, w, (int) (w * s), true);
         return b;
 
+    }
+
+
+    public void setPwdInputViewType(ViewType type) {
+        this.mViewType = type;
+
+    }
+
+    public void setRadiusBg(int radiusBg) {
+        this.radiusBg = radiusBg;
     }
 
 
