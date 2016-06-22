@@ -61,6 +61,10 @@ public class PwdGestureView extends View {
     boolean isDrawLine = true;
 
 
+    int mLine = 3;
+    int mRow = 3;
+
+
     private float triangleLine;
     Bitmap bitmapTriangle = null;
     private String oldPwd = null;
@@ -91,10 +95,10 @@ public class PwdGestureView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(dip2px(1));
         mRectFButtons.clear();
-        for (int i = 0; i < 3; i++)//行
+        for (int i = 0; i < mLine; i++)//行
         {
 
-            for (int j = 0; j < 3; j++)//列
+            for (int j = 0; j < mRow; j++)//列
             {
                 RectF fButton = new RectF();
                 fButton.left = j * buttonWidth + buttonMarginLeft + buttonPadding;
@@ -188,21 +192,24 @@ public class PwdGestureView extends View {
         mWidth = getMeasuredWidth();
         mHigh = getMeasuredHeight();
         buttonPadding = dip2px(5);
-        ArcWidth = dip2px(30);
+//        ArcWidth = dip2px(30);
         selectButtonCenterR = dip2px(8);
 
         triangleLine = dip2px(10);
 
         if (mWidth > mHigh) {
-            buttonWidth = mHigh / 3.0f;
+            buttonWidth = mHigh / mRow;
             buttonMarginLeft = Math.abs((mHigh - mWidth) / 2.0f);
             buttonMarginTop = 0f;
         } else {
-            buttonWidth = mWidth / 3.0f;
+            buttonWidth = mWidth / mLine;
             buttonMarginTop = Math.abs((mHigh - mWidth) / 2.0f);
             buttonMarginLeft = 0f;
         }
-
+        ArcWidth = (int) (buttonWidth / 2 - dip2px(10));
+        if (ArcWidth <= 0) {
+            ArcWidth=dip2px(10);
+        }
 
     }
 
@@ -403,7 +410,7 @@ public class PwdGestureView extends View {
             Path p = new Path();
             p.moveTo(x1, y1);
             p.lineTo(x2, y2);
-            canvas.drawTextOnPath("☞", p, getFontHeight(mPaintOrientation, "☞") *3/2,
+            canvas.drawTextOnPath("☞", p, getFontHeight(mPaintOrientation, "☞") * 3 / 2,
                     getFontHeight(mPaintOrientation, "☞") / 2,
                     mPaintOrientation);
         }
