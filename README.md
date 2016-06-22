@@ -1,7 +1,6 @@
 # PassWordInput
 A custom Password Input with animation for Android
 
-自定义密码输入控件
 九宫格手势密码和自定义密码样式的输入框
 
 ![输入框样式.jpg](https://github.com/ldoublem/PassWordInput/blob/master/screen/inputtype.jpg)
