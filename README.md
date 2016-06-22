@@ -31,7 +31,7 @@ A custom Password Input with animation for Android
 ```
 ## About me
 
-An android developer in Hngzhou.
+An android developer in Hangzhou.
 
 Welcome to [offer me](mailto:1227102260@qq.com). :smiley:
 
