@@ -175,6 +175,7 @@ public class PwdInputView extends EditText {
                 }
             }
         }
+	
 
     }
 
@@ -225,7 +226,22 @@ public class PwdInputView extends EditText {
 
 
     }
-
+	public void setFrameColor(int color){
+		setPaintColor(mPaint, color);
+	}
+	public void setInnerSurfaceColor(int color){
+		setPaintColor(mPaintContent, color);
+		
+	}
+	public void setPasswordIndicatorColor(int color){
+		setPaintColor(mPaintArc, color);
+	}
+	private void setPaintColor(Paint p, int color){
+		p.setColor(color);
+		if(isActivated() || isShown()){
+			invalidate();
+		}
+	}
     private class PaintLastArcAnim extends Animation {
         @Override
         protected void applyTransformation(float time, Transformation t) {

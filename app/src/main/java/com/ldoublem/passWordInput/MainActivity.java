@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ldoublem.passWordInput.view.PwdGestureView;
 import com.ldoublem.passWordInput.view.PwdInputView;
+import android.graphics.Color;
 
 public class MainActivity extends AppCompatActivity {
     PwdGestureView mPwdGestureView;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 showPwd(isChecked);
             }
         });
+		
         rb_text.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         mPwdInputView.setShadowPasswords(mSw_show.isChecked());
         mPwdInputView.setPwdInputViewType(PwdInputView.ViewType.DEFAULT);
 //        mPwdInputView.setRadiusBg(10);
+		
         mPwdInputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,8 +116,7 @@ public class MainActivity extends AppCompatActivity {
         mPwdInputView3.setShadowPasswords(mSw_show.isChecked());
         mPwdInputView3.setPwdInputViewType(PwdInputView.ViewType.BIASLINE);
         mPwdInputView3.setRadiusBg(20);
-
-
+		
 
 
         cb_set_pwd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
