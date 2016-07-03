@@ -31,24 +31,36 @@ import java.util.Map;
 public class PwdGestureView extends View {
 
 
-    private Paint mPaint;
-    private Paint mPaintLine;
+    protected Paint mPaint;
+    protected Paint mPaintLine;
     private Paint mPaintOrientation;
-    private int mWidth;
-    private int mHigh;
+    protected int mWidth;
+    protected int mHigh;
 
-    private float buttonWidth;
+    protected float buttonWidth;
     private float buttonMarginTop;
     private float buttonMarginLeft;
-    private float buttonPadding;
-    private int ArcWidth;
-    private float selectButtonCenterR;
+    protected float buttonPadding;
+    protected int ArcWidth;
+    protected float selectButtonCenterR;
     List<RectF> mRectFButtons = new ArrayList<RectF>();
     Map<String, RectF> mRectFButtons_select = new HashMap<String, RectF>();
     List<String> mPwd = new ArrayList<String>();
 
     int colorNomalBg = Color.rgb(86, 171, 228);
+
+    public void setColorNomalBg(int color) {
+        this.colorNomalBg = color;
+
+    }
+
     int colorNomalLine = Color.argb(200, 86, 171, 228);
+
+    public void setColorNomalLineg(int color) {
+        this.colorNomalLine = color;
+
+    }
+
 
 
     int colorErrorBg = Color.rgb(216, 64, 66);
@@ -68,6 +80,7 @@ public class PwdGestureView extends View {
     private float triangleLine;
     Bitmap bitmapTriangle = null;
     private String oldPwd = null;
+    Path pathPointer = new Path();
 
     public PwdGestureView(Context context) {
 
@@ -83,7 +96,7 @@ public class PwdGestureView extends View {
         initPaint();
     }
 
-    private void drawButtons(Canvas canvas) {
+    protected void drawButtons(Canvas canvas) {
 
         if (isError) {
             mPaint.setColor(colorErrorBg);
@@ -114,7 +127,7 @@ public class PwdGestureView extends View {
         }
     }
 
-    private void drawCircleAndLines(Canvas canvas) {
+    protected void drawCircleAndLines(Canvas canvas) {
         mPaint.setStyle(Paint.Style.FILL);
 
         for (int i = 0; i < mPwd.size(); i++) {
@@ -191,6 +204,12 @@ public class PwdGestureView extends View {
 
         mWidth = getMeasuredWidth();
         mHigh = getMeasuredHeight();
+
+        if (mWidth < mHigh) {
+            mHigh = mWidth;
+        }
+
+
         buttonPadding = dip2px(5);
 //        ArcWidth = dip2px(30);
         selectButtonCenterR = dip2px(8);
@@ -208,12 +227,12 @@ public class PwdGestureView extends View {
         }
         ArcWidth = (int) (buttonWidth / 2 - dip2px(10));
         if (ArcWidth <= 0) {
-            ArcWidth=dip2px(10);
+            ArcWidth = dip2px(10);
         }
 
     }
 
-    private void initPaint() {
+    protected void initPaint() {
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -333,7 +352,7 @@ public class PwdGestureView extends View {
     }
 
 
-    private void drawlinebyAngle(float x1, float y1, float x2, float y2, float radius, Canvas canvas, boolean isLast) {
+    protected void drawlinebyAngle(float x1, float y1, float x2, float y2, float radius, Canvas canvas, boolean isLast) {
 
 
         int angle = 0;
@@ -406,14 +425,7 @@ public class PwdGestureView extends View {
         }
 
 
-        if (isError) {
-            Path p = new Path();
-            p.moveTo(x1, y1);
-            p.lineTo(x2, y2);
-            canvas.drawTextOnPath("☞", p, getFontHeight(mPaintOrientation, "☞") * 3 / 2,
-                    getFontHeight(mPaintOrientation, "☞") / 2,
-                    mPaintOrientation);
-        }
+        setTrueOrFalse(x1, y1, x2, y2, canvas, isError);
 
 
         if (isLast)
@@ -439,5 +451,17 @@ public class PwdGestureView extends View {
     public void setOldPwd(String oldPwd) {
         this.oldPwd = oldPwd;
     }
+
+    protected void setTrueOrFalse(float x1, float y1, float x2, float y2, Canvas canvas, boolean isError) {
+        if (isError) {
+            pathPointer.reset();
+            pathPointer.moveTo(x1, y1);
+            pathPointer.lineTo(x2, y2);
+            canvas.drawTextOnPath("☞", pathPointer, getFontHeight(mPaintOrientation, "☞") * 3 / 2,
+                    getFontHeight(mPaintOrientation, "☞") / 2,
+                    mPaintOrientation);
+        }
+    }
+
 
 }

@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mPwdInputView.setShadowPasswords(mSw_show.isChecked());
         mPwdInputView.setPwdInputViewType(PwdInputView.ViewType.DEFAULT);
-//        mPwdInputView.setRadiusBg(10);
+//        mPwdInputView.setRadiusBg(-1);//无边框
         mPwdInputView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

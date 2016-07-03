@@ -18,7 +18,7 @@
             android:orientation="vertical">
             <com.ldoublem.passWordInput.view.PwdInputView
                 android:id="@+id/pwd_input_view2"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
@@ -26,7 +26,7 @@
                 android:focusableInTouchMode="true"
                 android:inputType="number"
                 android:lines="1"
-                android:maxLength="4"/>
+                android:maxLength="6"/>
 
             <com.ldoublem.passWordInput.view.PwdInputView
                 android:id="@+id/pwd_input_view3"
@@ -142,6 +142,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="set password 012543"/>
+            <com.ldoublem.passWordInput.view.PwdGestureRoundView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_gravity="center"/>
 
         </LinearLayout>
     </ScrollView>

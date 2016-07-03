@@ -64,6 +64,9 @@ public class PwdInputView extends EditText {
 
     }
 
+    private int bgColor = Color.WHITE;
+    private int underLineColor = Color.GRAY;
+    private int textColor = Color.argb(155, 0, 0, 0);
 
     public enum ViewType {
         DEFAULT, UNDERLINE, BIASLINE
@@ -78,9 +81,19 @@ public class PwdInputView extends EditText {
         canvas.drawRoundRect(rectIn, radiusBg, radiusBg, mPaintContent);
         // 边框
         RectF rect = new RectF(mPadding, mPadding, getMeasuredWidth() - mPadding, getMeasuredHeight() - mPadding);
-        mPaint.setStrokeWidth(0.8f);
-        canvas.drawRoundRect(rect, radiusBg, radiusBg, mPaint);
 
+        if (radiusBg != -1) {
+
+            mPaint.setStrokeWidth(0.8f);
+            canvas.drawRoundRect(rect, radiusBg, radiusBg, mPaint);
+        } else {
+            mPaint.setStyle(Paint.Style.FILL);
+            mPaint.setColor(bgColor);
+            canvas.drawRoundRect(rect, 0, 0, mPaint);
+
+        }
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(Color.GRAY);
 
         float cx, cy = getMeasuredHeight() / 2;
         float half = getMeasuredWidth() / maxLineSize / 2;
@@ -96,6 +109,7 @@ public class PwdInputView extends EditText {
 
             case UNDERLINE:
                 mPaint.setStrokeWidth(4.0f);
+                mPaint.setColor(underLineColor);
                 for (int i = getText().toString().length(); i < maxLineSize; i++) {
                     float x = getMeasuredWidth() * i / maxLineSize + half;
                     canvas.drawLine(x - half / 3,
@@ -123,6 +137,7 @@ public class PwdInputView extends EditText {
                 break;
         }
 
+        mPaintArc.setColor(textColor);
 
         if (isShadowPasswords) {
 
@@ -221,7 +236,6 @@ public class PwdInputView extends EditText {
         mPaintArc = new Paint();
         mPaintArc.setAntiAlias(true);
         mPaintArc.setStyle(Paint.Style.FILL);
-        mPaintArc.setColor(Color.argb(155, 0, 0, 0));
 
 
     }
@@ -339,6 +353,21 @@ public class PwdInputView extends EditText {
 
     public void setRadiusBg(int radiusBg) {
         this.radiusBg = radiusBg;
+    }
+
+    public void setBgColor(int bgColor) {
+        this.bgColor = bgColor;
+    }
+
+    public void setNumTextSize(int textsize) {
+        this.mTextSize = textsize;
+    }
+
+    public void setUnderLineColor(int underLineColor) {
+        this.underLineColor = underLineColor;
+    }
+    public void setNumTextColor(int textColor) {
+        this.textColor = textColor;
     }
 
 
