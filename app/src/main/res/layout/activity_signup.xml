@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="50dp"
+
+    tools:context="com.ldoublem.passWordInput.SignUpActivity">
+
+    <com.ldoublem.passWordInput.view.SignUpInputView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:id="@+id/sign_btn"
+        android:cursorVisible="false"
+        android:textSize="18dp"
+        android:focusableInTouchMode="true"
+        android:layout_height="45dp"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:id="@+id/btn_again"
+        android:layout_marginTop="20dp"
+        android:cursorVisible="false"
+        android:textSize="18dp"
+        android:text="again"
+        android:layout_height="45dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/tv_info"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:textColor="@android:color/white"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+
+</LinearLayout>

@@ -27,7 +27,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         setTitle("SET PASSWORD");
         mPwdInputView = (PwdInputView) findViewById(R.id.pwd_input_view);
-        mPwdInputView.setFocusable(false);
+//        mPwdInputView.setFocusable(false);
         mPwdInputView.setPwdInputViewType(PwdInputView.ViewType.UNDERLINE);
         mPwdInputView.setRadiusBg(-1);//无边框
         mPwdInputView.setNumTextSize(70);

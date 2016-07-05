@@ -215,7 +215,7 @@ public class PwdInputView extends EditText {
         }
     }
 
-    private void initPaint() {
+    protected void initPaint() {
         maxLineSize = getMaxLength();
         mPaintLastArcAnim = new PaintLastArcAnim();
         mPaintLastArcAnim.setDuration(PaintLastArcAnimDuration);
