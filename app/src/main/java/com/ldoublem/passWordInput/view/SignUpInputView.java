@@ -97,6 +97,8 @@ public class SignUpInputView extends EditText {
 
     float interpolatedTimeFirst = 0f;
     float interpolatedTimeMiddle = 0f;
+    float interpolatedTimeMiddleTonext = 0f;
+
     float interpolatedTimeLast = 0f;
 
     public void setSetpIcon(Integer... setpicon) {
@@ -199,23 +201,22 @@ public class SignUpInputView extends EditText {
 
                 bgPaint.setColor(bgColor);
                 bgPaint.setStyle(Paint.Style.FILL);
-                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 ,
+                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2,
                         bgRectF.top + nextRectF.width() / 2,
                         nextRectF.width() / 2, bgPaint);
-                canvas.drawBitmap(bitmapBefore, bgRectF.left + nextRectF.width() / 2 - bitmapBefore.getWidth() / 2 ,
+                canvas.drawBitmap(bitmapBefore, bgRectF.left + nextRectF.width() / 2 - bitmapBefore.getWidth() / 2,
                         bgRectF.top + nextRectF.width() / 2 - bitmapBefore.getHeight() / 2,
                         bgPaint);
                 bgPaint.setColor(Color.WHITE);
                 bgPaint.setStyle(Paint.Style.STROKE);
-                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 ,
+                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2,
                         bgRectF.top + nextRectF.width() / 2,
                         nextRectF.width() / 2, bgPaint);
 
             }
 
-
-            bitmap = setBitmapRotation(bitmap, (int) (-45 * interpolatedTimeMiddle));
             bitmap = setBitmapSize(bitmap, (int) (nextRectF.width() * 0.4f), scale);
+            bitmap = setBitmapRotation(bitmap, (int) (-45 * interpolatedTimeMiddle));
             bgPaint.setColor(bgColor);
             bgPaint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 + positionX,
@@ -254,71 +255,90 @@ public class SignUpInputView extends EditText {
 
         textWidth = getPaint().measureText(getText().toString().trim());
         float marLeft = 0f;
+        if (!toNextStep) {
 
-
-        if (mWidth - 2 * mPadding < textWidth) {
-            marLeft = textWidth - mWidth;
-            bgRectF.left = mPadding + marLeft;
+            float w = toNextStepRectF.width();
+            float x = (w - (mWidth / 2 ) )/2f * interpolatedTimeMiddleTonext;
+            bgRectF.left = toNextStepRectF.left+x;
+            bgRectF.right = toNextStepRectF.right-x;
             bgRectF.top = mPadding;
-            bgRectF.right = mWidth - mPadding + marLeft;
             bgRectF.bottom = mHeight - mPadding;
             bgPaint.setStyle(Paint.Style.FILL);
             bgPaint.setColor(bgColor);
             canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
             bgPaint.setStyle(Paint.Style.STROKE);
+
             if (inputError)
                 bgPaint.setColor(errorColor);
             else
                 bgPaint.setColor(Color.WHITE);
-
             canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
-        } else if (mWidth / 2 >= textWidth) {
 
-            bgRectF.left = mWidth / 2 - mWidth / 4;
-            bgRectF.right = mWidth / 2 + mWidth / 4;
-            float w = 0f;
-            if (mStep == 1) {
-                w = (bgRectF.width() - bgRectF.height()) / 2 * (interpolatedTimeFirst);
-                bgRectF.left = mWidth / 2 - mWidth / 4 + w;
-                bgRectF.right = mWidth / 2 + mWidth / 4 - w;
 
-            } else {//if (mStep == 2) {
-                bgRectF.left = mWidth / 2 - mWidth / 4 - textWidth / 2f;
-                bgRectF.right = mWidth / 2 + mWidth / 4 + textWidth / 2f;
+        } else {
+            if (mWidth - 2 * mPadding < textWidth) {
+                marLeft = textWidth - mWidth;
+                bgRectF.left = mPadding + marLeft;
+                bgRectF.top = mPadding;
+                bgRectF.right = mWidth - mPadding + marLeft;
+                bgRectF.bottom = mHeight - mPadding;
+                bgPaint.setStyle(Paint.Style.FILL);
+                bgPaint.setColor(bgColor);
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
+                bgPaint.setStyle(Paint.Style.STROKE);
+                if (inputError)
+                    bgPaint.setColor(errorColor);
+                else
+                    bgPaint.setColor(Color.WHITE);
 
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
+            } else if (mWidth / 2 >= textWidth) {
+
+                bgRectF.left = mWidth / 2 - mWidth / 4;
+                bgRectF.right = mWidth / 2 + mWidth / 4;
+                float w = 0f;
+                if (mStep == 1) {
+                    w = (bgRectF.width() - bgRectF.height()) / 2 * (interpolatedTimeFirst);
+                    bgRectF.left = mWidth / 2 - mWidth / 4 + w;
+                    bgRectF.right = mWidth / 2 + mWidth / 4 - w;
+
+                } else {//if (mStep == 2) {
+                    bgRectF.left = mWidth / 2 - mWidth / 4 - textWidth / 2f;
+                    bgRectF.right = mWidth / 2 + mWidth / 4 + textWidth / 2f;
+
+                }
+
+                bgRectF.top = mPadding;
+                bgRectF.bottom = mHeight - mPadding;
+                bgPaint.setStyle(Paint.Style.FILL);
+                bgPaint.setColor(bgColor);
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
+                bgPaint.setStyle(Paint.Style.STROKE);
+                if (inputError)
+                    bgPaint.setColor(errorColor);
+                else
+                    bgPaint.setColor(Color.WHITE);
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
+
+
+            } else {
+                marLeft = 0;
+                bgRectF.left = mPadding + marLeft;
+                bgRectF.top = mPadding;
+                bgRectF.right = mWidth - mPadding + marLeft;
+                bgRectF.bottom = mHeight - mPadding;
+                bgPaint.setStyle(Paint.Style.FILL);
+                bgPaint.setColor(bgColor);
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
+                bgPaint.setStyle(Paint.Style.STROKE);
+
+                if (inputError)
+                    bgPaint.setColor(errorColor);
+                else
+                    bgPaint.setColor(Color.WHITE);
+                canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
             }
-
-            bgRectF.top = mPadding;
-            bgRectF.bottom = mHeight - mPadding;
-            bgPaint.setStyle(Paint.Style.FILL);
-            bgPaint.setColor(bgColor);
-            canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
-            bgPaint.setStyle(Paint.Style.STROKE);
-            if (inputError)
-                bgPaint.setColor(errorColor);
-            else
-                bgPaint.setColor(Color.WHITE);
-            canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
-
-
-        } else {
-            marLeft = 0;
-            bgRectF.left = mPadding + marLeft;
-            bgRectF.top = mPadding;
-            bgRectF.right = mWidth - mPadding + marLeft;
-            bgRectF.bottom = mHeight - mPadding;
-            bgPaint.setStyle(Paint.Style.FILL);
-            bgPaint.setColor(bgColor);
-            canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
-            bgPaint.setStyle(Paint.Style.STROKE);
-
-            if (inputError)
-                bgPaint.setColor(errorColor);
-            else
-                bgPaint.setColor(Color.WHITE);
-            canvas.drawRoundRect(bgRectF, bgRectF.height() / 2, bgRectF.height() / 2, bgPaint);
         }
-
         if (MInputType == InputType.BUTTON) {
             bgPaint.setTextSize(getPaint().getTextSize());
             bgPaint.setStyle(Paint.Style.FILL);
@@ -328,6 +348,7 @@ public class SignUpInputView extends EditText {
                 if (interpolatedTimeLast == 0) {
                     startLastAnim(250);
                 }
+                bgPaint.setAlpha((int) (255*interpolatedTimeLast));
                 bgPaint.setTextSize(getPaint().getTextSize() * interpolatedTimeLast);
             }
 
@@ -627,6 +648,26 @@ public class SignUpInputView extends EditText {
 
     }
 
+    private boolean toNextStep = true;
+
+    private RectF toNextStepRectF;
+
+    public void startMiddleToNextAnim(int time) {
+//        if (valueAnimator != null) {
+//            if (valueAnimator.isRunning()) {
+//                return;
+//            }
+//        }
+        setText("");
+        toNextStepRectF=new RectF();
+        toNextStepRectF.top=bgRectF.top;
+        toNextStepRectF.bottom=bgRectF.bottom;
+        toNextStepRectF.left=bgRectF.left;
+        toNextStepRectF.right=bgRectF.right;
+        startMiddleToNextViewAnim(0f, 1f, time);
+
+    }
+
 
     public void startLastAnim(int time) {
         if (valueAnimator != null) {
@@ -664,16 +705,70 @@ public class SignUpInputView extends EditText {
                 MInputType = InputType.EDITTEXT;
                 if (mStep - 1 < mVerifyType.length) {
                     for (int i = 0; i < mVerifyType.length; i++) {
-//                    if (mStep == PassWordStep[i] + 1) {
-//                        MInputType = InputType.PASSWORD;
-//                    }
-
                         if (mVerifyType[mStep - 1] == VerifyType.PASSWORD) {
                             MInputType = InputType.PASSWORD;
                         }
                     }
                 }
+                startMiddleToNextAnim(200);
 
+
+
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                super.onAnimationRepeat(animation);
+
+            }
+
+        });
+        if (!valueAnimator.isRunning()) {
+            valueAnimator.start();
+
+        }
+
+        return valueAnimator;
+    }
+
+
+    private ValueAnimator startMiddleToNextViewAnim(float startF, final float endF, long time) {
+        valueAnimator = ValueAnimator.ofFloat(startF, endF);
+        valueAnimator.setDuration(time);
+        valueAnimator.setInterpolator(new LinearInterpolator());
+        valueAnimator.setRepeatCount(0);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+
+                interpolatedTimeMiddleTonext = (float) valueAnimator.getAnimatedValue();
+
+
+                invalidate();
+            }
+        });
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
+
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+//                MInputType = InputType.EDITTEXT;
+//                if (mStep - 1 < mVerifyType.length) {
+//                    for (int i = 0; i < mVerifyType.length; i++) {
+//                        if (mVerifyType[mStep - 1] == VerifyType.PASSWORD) {
+//                            MInputType = InputType.PASSWORD;
+//                        }
+//                    }
+//                }
+                toNextStep = true;
                 if (mStep - 2 < setpIcon.length) {
                     mStep = mStep + 1;
                     interpolatedTimeMiddle = 0f;
@@ -687,6 +782,7 @@ public class SignUpInputView extends EditText {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
+                toNextStep = false;
 
             }
 
