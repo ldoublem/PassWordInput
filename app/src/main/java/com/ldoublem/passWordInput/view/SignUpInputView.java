@@ -73,6 +73,8 @@ public class SignUpInputView extends EditText {
     float textWidth = 0f;
     int textcount = 0;
     Bitmap bitmap = null;
+    Bitmap bitmapBefore = null;
+
     InputType MInputType = InputType.BUTTON;
 
     String mButtonText = "Sign Up";
@@ -190,8 +192,30 @@ public class SignUpInputView extends EditText {
             float positionX = (bgRectF.width() - nextRectF.width()) * interpolatedTimeMiddle;
             bitmap = BitmapFactory.decodeResource(getContext().getResources(), setpIcon[mStep - 2]);
             scale = bitmap.getHeight() / bitmap.getWidth();
+
+            if (mStep - 1 < setpIcon.length) {
+                bitmapBefore = BitmapFactory.decodeResource(getContext().getResources(), setpIcon[mStep - 1]);
+                bitmapBefore = setBitmapSize(bitmapBefore, (int) (nextRectF.width() * 0.4f), scale);
+
+                bgPaint.setColor(bgColor);
+                bgPaint.setStyle(Paint.Style.FILL);
+                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 ,
+                        bgRectF.top + nextRectF.width() / 2,
+                        nextRectF.width() / 2, bgPaint);
+                canvas.drawBitmap(bitmapBefore, bgRectF.left + nextRectF.width() / 2 - bitmapBefore.getWidth() / 2 ,
+                        bgRectF.top + nextRectF.width() / 2 - bitmapBefore.getHeight() / 2,
+                        bgPaint);
+                bgPaint.setColor(Color.WHITE);
+                bgPaint.setStyle(Paint.Style.STROKE);
+                canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 ,
+                        bgRectF.top + nextRectF.width() / 2,
+                        nextRectF.width() / 2, bgPaint);
+
+            }
+
+
             bitmap = setBitmapRotation(bitmap, (int) (-45 * interpolatedTimeMiddle));
-            bitmap = setBitmapSize(bitmap, (int) (nextRectF.width() / 3), scale);
+            bitmap = setBitmapSize(bitmap, (int) (nextRectF.width() * 0.4f), scale);
             bgPaint.setColor(bgColor);
             bgPaint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 + positionX,
@@ -208,6 +232,7 @@ public class SignUpInputView extends EditText {
             canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 + positionX,
                     bgRectF.top + nextRectF.width() / 2,
                     nextRectF.width() / 2, bgPaint);
+
 
         } else {
 
@@ -305,9 +330,18 @@ public class SignUpInputView extends EditText {
                 }
                 bgPaint.setTextSize(getPaint().getTextSize() * interpolatedTimeLast);
             }
-            canvas.drawText(mButtonText, bgRectF.centerX() - getFontlength(bgPaint, mButtonText) / 2
-                    , bgRectF.centerY() + getFontHeight(bgPaint, mButtonText) / 3
-                    , bgPaint);
+
+            if (bgRectF.width() >= getFontlength(bgPaint, mButtonText)) {
+                canvas.drawText(mButtonText, bgRectF.centerX() - getFontlength(bgPaint, mButtonText) / 2
+                        , bgRectF.centerY() + getFontHeight(bgPaint, mButtonText) / 3
+                        , bgPaint);
+            } else {
+                float tsize = getPaint().getTextSize() * bgRectF.width() / getFontlength(bgPaint, mButtonText) * 0.8f;
+                bgPaint.setTextSize(tsize);
+                canvas.drawText(mButtonText, bgRectF.centerX() - getFontlength(bgPaint, mButtonText) / 2
+                        , bgRectF.centerY() + getFontHeight(bgPaint, mButtonText) / 3
+                        , bgPaint);
+            }
 
 
         }
@@ -321,7 +355,6 @@ public class SignUpInputView extends EditText {
         if (MInputType == InputType.BUTTON) {
             return;
         }
-
         canvastextlength = bgRectF.width() - bgRectF.height() * 2 - 10;
         textcount = getText().toString().trim().length();
         titlePaint.setTextSize(getPaint().getTextSize() * 0.5f);

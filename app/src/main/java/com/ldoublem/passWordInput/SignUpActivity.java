@@ -37,7 +37,6 @@ public class SignUpActivity extends AppCompatActivity {
         mSignUpInputView.setBgPaintColor(Color.BLACK);
         mSignUpInputView.setTextPaintColor(Color.WHITE);
         mSignUpInputView.setTitlePaintColor(Color.GRAY);
-
         mSignUpInputView.setSetpIcon(R.mipmap.user, R.mipmap.email, R.mipmap.pwd);
         mSignUpInputView.setSetpName("Name", "Email", "PassWord");
         mSignUpInputView.setmButtonText("Sign up");
