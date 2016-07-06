@@ -197,13 +197,15 @@ public class SignUpInputView extends EditText {
 
             if (mStep - 1 < setpIcon.length) {
                 bitmapBefore = BitmapFactory.decodeResource(getContext().getResources(), setpIcon[mStep - 1]);
-                bitmapBefore = setBitmapSize(bitmapBefore, (int) (nextRectF.width() * 0.4f), scale);
+                bitmapBefore = setBitmapSize(bitmapBefore,
+                        (int) (nextRectF.width() * 0.3f*
+                                (interpolatedTimeMiddle>0?interpolatedTimeMiddle:0.1f)), scale);
 
                 bgPaint.setColor(bgColor);
                 bgPaint.setStyle(Paint.Style.FILL);
                 canvas.drawCircle(bgRectF.left + nextRectF.width() / 2,
                         bgRectF.top + nextRectF.width() / 2,
-                        nextRectF.width() / 2, bgPaint);
+                        (nextRectF.width() / 2-bgPaint.getStrokeWidth()*4f)*interpolatedTimeMiddle, bgPaint);
                 canvas.drawBitmap(bitmapBefore, bgRectF.left + nextRectF.width() / 2 - bitmapBefore.getWidth() / 2,
                         bgRectF.top + nextRectF.width() / 2 - bitmapBefore.getHeight() / 2,
                         bgPaint);
@@ -211,17 +213,17 @@ public class SignUpInputView extends EditText {
                 bgPaint.setStyle(Paint.Style.STROKE);
                 canvas.drawCircle(bgRectF.left + nextRectF.width() / 2,
                         bgRectF.top + nextRectF.width() / 2,
-                        nextRectF.width() / 2, bgPaint);
+                        (nextRectF.width() / 2-bgPaint.getStrokeWidth()*4f)*interpolatedTimeMiddle, bgPaint);
 
             }
 
-            bitmap = setBitmapSize(bitmap, (int) (nextRectF.width() * 0.4f), scale);
-            bitmap = setBitmapRotation(bitmap, (int) (-45 * interpolatedTimeMiddle));
+            bitmap = setBitmapSize(bitmap, (int) (nextRectF.width() * 0.3f), scale);
+            bitmap = setBitmapRotation(bitmap, (int) (405 * interpolatedTimeMiddle));
             bgPaint.setColor(bgColor);
             bgPaint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 + positionX,
                     bgRectF.top + nextRectF.width() / 2,
-                    nextRectF.width() / 2, bgPaint);
+                    nextRectF.width() / 2-bgPaint.getStrokeWidth()*4f, bgPaint);
             canvas.drawBitmap(bitmap, bgRectF.left + nextRectF.width() / 2 - bitmap.getWidth() / 2 + positionX,
                     bgRectF.top + nextRectF.width() / 2 - bitmap.getHeight() / 2,
                     bgPaint);
@@ -232,7 +234,7 @@ public class SignUpInputView extends EditText {
             bgPaint.setStyle(Paint.Style.STROKE);
             canvas.drawCircle(bgRectF.left + nextRectF.width() / 2 + positionX,
                     bgRectF.top + nextRectF.width() / 2,
-                    nextRectF.width() / 2, bgPaint);
+                    nextRectF.width() / 2-bgPaint.getStrokeWidth()*4f, bgPaint);
 
 
         } else {
